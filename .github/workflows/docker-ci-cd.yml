@@ -57,9 +57,9 @@ jobs:
           username: ${{ secrets.DEV_SSH_USERNAME }}
           key: ${{ secrets.DEV_SSH_PRIVATE_KEY }}
           script: |
-            docker pull ${{ env.DOCKER_IMAGE_NAME }}:${{ github.ref_name }}-${{ github.sha }}
+            sudo docker pull ${{ env.DOCKER_IMAGE_NAME }}:${{ github.ref_name }}-${{ github.sha }}
             
-            docker stop ${{ github.event.repository.name }}-dev || true
-            docker rm ${{ github.event.repository.name }}-dev || true
+            sudo docker stop ${{ github.event.repository.name }}-dev || true
+            sudo docker rm ${{ github.event.repository.name }}-dev || true
             
-            docker run -d --name ${{ github.event.repository.name }}-dev -p 8081:8080 ${{ env.DOCKER_IMAGE_NAME }}:${{ github.ref_name }}-${{ github.sha }}
+            sudo docker run -d --name ${{ github.event.repository.name }}-dev -p 8080:8080 ${{ env.DOCKER_IMAGE_NAME }}:${{ github.ref_name }}-${{ github.sha }}
